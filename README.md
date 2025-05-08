@@ -1,130 +1,98 @@
-# Participatory AI for Workshops
+# Document Analysis Web Application
 
-[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
-[![Tests status][tests-badge]][tests-link]
-[![Linting status][linting-badge]][linting-link]
-[![Documentation status][documentation-badge]][documentation-link]
-[![License][license-badge]](./LICENSE.md)
+A modern web application for document analysis, summarization, and FAQ generation. Users can upload PDFs and images, get summaries, ask questions, and generate FAQs from their documents.
 
-<!-- prettier-ignore-start -->
-[tests-badge]:              https://github.com/sagaruprety/participatory-ai-for-workshops/actions/workflows/tests.yml/badge.svg
-[tests-link]:               https://github.com/sagaruprety/participatory-ai-for-workshops/actions/workflows/tests.yml
-[linting-badge]:            https://github.com/sagaruprety/participatory-ai-for-workshops/actions/workflows/linting.yml/badge.svg
-[linting-link]:             https://github.com/sagaruprety/participatory-ai-for-workshops/actions/workflows/linting.yml
-[documentation-badge]:      https://github.com/sagaruprety/participatory-ai-for-workshops/actions/workflows/docs.yml/badge.svg
-[documentation-link]:       https://github.com/sagaruprety/participatory-ai-for-workshops/actions/workflows/docs.yml
-[license-badge]:            https://img.shields.io/badge/License-MIT-yellow.svg
-<!-- prettier-ignore-end -->
+## Features
 
-This is an AI agent which hfacilitiates participation and decision-making in workshops
+- User authentication (signup/login)
+- File upload support for PDFs and images
+- Document summarization
+- Question answering based on documents
+- FAQ generation
+- Secure password storage
+- PostgreSQL database integration
 
-This project is developed in collaboration with the
-[Centre for Advanced Research Computing](https://ucl.ac.uk/arc), University
-College London.
+## Tech Stack
 
-## About
+- Backend: FastAPI (Python)
+- Frontend: React (TypeScript)
+- Database: PostgreSQL
+- Authentication: JWT
+- File Storage: Local filesystem (configurable)
 
-### Project Team
+## Prerequisites
 
-Sagar Uprety ([s.uprety@ucl.ac.uk](mailto:s.uprety@ucl.ac.uk))
+- Python 3.9+
+- PostgreSQL
+- Node.js 16+ (for frontend)
+- uv (Python package manager)
 
-<!-- TODO: how do we have an array of collaborators ? -->
+## Setup
 
-### Research Software Engineering Contact
-
-Centre for Advanced Research Computing, University College London
-([arc.collaborations@ucl.ac.uk](mailto:arc.collaborations@ucl.ac.uk))
-
-## Built With
-
-<!-- TODO: can cookiecutter make a list of frameworks? -->
-
-- [Framework 1](https://something.com)
-- [Framework 2](https://something.com)
-- [Framework 3](https://something.com)
-
-## Getting Started
-
-### Prerequisites
-
-<!-- Any tools or versions of languages needed to run code. For example specific Python or Node versions. Minimum hardware requirements also go here. -->
-
-`participatory-ai-for-workshops` requires Python 3.11&ndash;3.13.
-
-### Installation
-
-<!-- How to build or install the application. -->
-
-We recommend installing in a project specific virtual environment created using
-a environment management tool such as
-[Conda](https://docs.conda.io/projects/conda/en/stable/). To install the latest
-development version of `participatory-ai-for-workshops` using `pip` in the currently active
-environment run
-
-```sh
-pip install git+https://github.com/sagaruprety/participatory-ai-for-workshops.git
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd participatory-ai-for-workshops
 ```
 
-Alternatively create a local clone of the repository with
-
-```sh
-git clone https://github.com/sagaruprety/participatory-ai-for-workshops.git
+2. Create and activate a virtual environment:
+```bash
+uv venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 ```
 
-and then install in editable mode by running
-
-```sh
-pip install -e .
+3. Install dependencies:
+```bash
+uv pip install -r requirements.txt
 ```
 
-### Running Locally
+4. Create a `.env` file in the root directory:
+```env
+DATABASE_URL=postgresql+asyncpg://user:password@localhost/dbname
+SECRET_KEY=your-secret-key-here
+OPENAI_API_KEY=your-openai-api-key-here
+GOOGLE_API_KEY=your-google-api-key-here
+```
 
-How to run the application on your local system.
+5. Ensure your PostgreSQL database is running and accessible.
+
+6. **First Run:**
+   The database tables will be created automatically on app startup.
+
+7. Run the development server:
+```bash
+uvicorn src.participatory_ai_for_workshops.main:app --reload
+```
+
+The API will be available at `http://localhost:8000`
+
+## API Documentation
+
+Once the server is running, you can access:
+- Swagger UI: `http://localhost:8000/docs`
+- ReDoc: `http://localhost:8000/redoc`
+
+## Development
 
 ### Running Tests
 
-<!-- How to run tests on your local system. -->
-
-Tests can be run across all compatible Python versions in isolated environments
-using [`tox`](https://tox.wiki/en/latest/) by running
-
-```sh
-tox
+```bash
+pytest
 ```
 
-To run tests manually in a Python environment with `pytest` installed run
+### Code Style
 
-```sh
-pytest tests
+The project uses:
+- Ruff for linting
+- Black for code formatting
+- MyPy for type checking
+
+Run the formatters:
+```bash
+ruff check .
+ruff format .
 ```
 
-again from the root of the repository.
+## License
 
-### Building Documentation
-
-The MkDocs HTML documentation can be built locally by running
-
-```sh
-tox -e docs
-```
-
-from the root of the repository. The built documentation will be written to
-`site`.
-
-Alternatively to build and preview the documentation locally, in a Python
-environment with the optional `docs` dependencies installed, run
-
-```sh
-mkdocs serve
-```
-
-## Roadmap
-
-- [x] Initial Research
-- [ ] Minimum viable product <-- You are Here
-- [ ] Alpha Release
-- [ ] Feature-Complete Release
-
-## Acknowledgements
-
-This work was funded by UCL Research Cultures Fund.
+This project is licensed under the MIT License - see the LICENSE file for details.
